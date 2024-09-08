@@ -5,31 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloudify Portal - Dropdown Example</title>
     <link rel="stylesheet" href="/css/style.css">
-    <!-- Include MSAL.js from the CDN -->
     <script src="https://alcdn.msauth.net/browser/2.19.0/js/msal-browser.min.js"></script>
 
     <style>
-        /* Definir que o html e body tenham 100% da altura */
         html, body {
             height: auto;
             margin: auto;
             padding:0;
-            background-color: #f5f5f5; /* Cor de fundo que irá preencher a página toda */
+            background-color: #f5f5f5;
         }
 
-        /* Garantir que o container principal ocupe pelo menos 100% da altura da viewport */
         .cloudify-container {
-            min-height: 100vh; /* 100vh significa 100% da altura da viewport */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
-        /* Dropdown menu container */
         .nav-item {
             position: relative;
             display: inline-block;
         }
 
-        /* Dropdown content (hidden by default) */
         .dropdown-content {
             display: none;
             position: absolute;
@@ -39,7 +34,6 @@
             z-index: 1;
         }
 
-        /* Dropdown links */
         .dropdown-content a {
             color: #2e2a36;
             padding: 12px 16px;
@@ -47,24 +41,20 @@
             display: block;
         }
 
-        /* Change color of dropdown links on hover */
         .dropdown-content a:hover {
             background-color: #ddd;
         }
 
-        /* Show the dropdown menu on hover */
         .nav-item:hover .dropdown-content {
             display: flex;
         }
 
-        /* Style the main navigation */
         .nav-menu {
             display: flex;
             align-items: center;
             gap: 20px;
         }
 
-        /* Basic styles for the sign-in button */
         .sign-in {
             background-color: #2e2a36;
             color: white;
@@ -76,9 +66,13 @@
         .trust-text {
             font-size: 24px;
             font-weight: bold;
-            text-align: center; /* Center text */
+            text-align: center;
             position: static;
+        }
 
+        .logo-image {
+            height: 50px;
+            margin-right: 20px;
         }
     </style>
 </head>
@@ -86,16 +80,17 @@
 <section class="cloudify-container">
     <header class="header-wrapper">
         <nav class="nav-menu">
+            <a href="/">
+                <img src="images/logo.png" alt="Cloudify Logo" class="logo-image" />
+            </a>
             <div class="nav-item">
                 <span class="nav-text">Product</span>
             </div>
             <div class="nav-item">
                 <span class="nav-text">Resources</span>
                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/91f3c71d37f140ab0d3697e588d02d8ef8bcfc7ee0b26e55c060c088ebbc4b31?placeholderIfAbsent=true&apiKey=8bf8aa1dd53644bba65c0d1d31a7930e" alt="Dropdown Icon" class="dropdown-icon" />
-                <!-- Dropdown content -->
                 <div class="dropdown-content">
                     <a href="/portfolio.html">Portfolio</a>
-                </div>
                 </div>
             </div>
             <span class="nav-text">Pricing</span>
@@ -106,7 +101,6 @@
             <span class="nav-text">Request Demo</span>
         </nav>
         <div class="cta-wrapper">
-            <!-- Sign-in button -->
             <a href="#" class="sign-in" id="signInButton">Sign In</a>
             <a href="index.html" class="get-started-btn">Get Started</a>
         </div>
@@ -139,41 +133,33 @@
     <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/38704e989ce88ef8670e697fd0e623e0109d296a1481964a6baba854ae39e276?placeholderIfAbsent=true&apiKey=8bf8aa1dd53644bba65c0d1d31a7930e" alt="Logos of companies trusting Cloudify" class="company-logos" />
 </section>
 
-<!-- JavaScript to handle Microsoft Sign-In -->
 <script>
-    // Configure MSAL.js with your app's Client ID and other details
     const msalConfig = {
         auth: {
-            clientId: "418cd301-05ed-4780-a1d7-7f3c5e31834e", // Replace with your Microsoft Client ID
-            redirectUri: "http://localhost:3030/auth/redirect", // Change to your redirect URL
+            clientId: "418cd301-05ed-4780-a1d7-7f3c5e31834e",
+            redirectUri: "http://localhost:3030/auth/redirect",
         }
     };
 
-    // Create a new MSAL instance
     const msalInstance = new msal.PublicClientApplication(msalConfig);
 
-    // Function to handle sign-in
     async function signIn() {
         const loginRequest = {
-            scopes: ["user.read"], // Scopes you want to request
+            scopes: ["user.read"],
         };
 
         try {
-            // Login using a popup
             const loginResponse = await msalInstance.loginPopup(loginRequest);
             console.log("Login successful!", loginResponse);
-
-            // You can now redirect the user or perform other actions
-            window.location.href = "/dashboard"; // Redirect to dashboard after sign-in
+            window.location.href = "/dashboard";
         } catch (error) {
             console.error("Login failed", error);
         }
     }
 
-    // Attach the sign-in handler to the button
     document.getElementById("signInButton").addEventListener("click", (event) => {
-        event.preventDefault(); // Prevent default link behavior
-        signIn(); // Trigger sign-in
+        event.preventDefault();
+        signIn();
     });
 </script>
 </body>
