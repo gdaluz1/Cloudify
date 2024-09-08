@@ -19,6 +19,8 @@
 
 @media (max-width: 991px) {
     .header-wrapper {
+        flex-direction: column;
+        align-items: center;
         max-width: 100%;
     }
 }
@@ -33,7 +35,10 @@
 
 @media (max-width: 991px) {
     .nav-menu {
-        max-width: 100%;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        text-align: center;
     }
 }
 
@@ -44,11 +49,10 @@
     width: 147px;
     align-self: stretch;
     max-width: 100%;
-    background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/7aa71ac3d30bee6d222f25cf9f9fb0f30700e8ed8965269120f1f56db416a4c5?placeholderIfAbsent=true&apiKey=8bf8aa1dd53644bba65c0d1d31a7930e');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    height: 50px; /* Adjust height if needed */
+    height: 50px;
 }
 
 .nav-item {
@@ -62,6 +66,7 @@
 @media (max-width: 991px) {
     .nav-item {
         white-space: initial;
+        justify-content: center;
     }
 }
 
@@ -75,66 +80,69 @@
     object-position: center;
     width: 12px;
     align-self: start;
-    background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/91f3c71d37f140ab0d3697e588d02d8ef8bcfc7ee0b26e55c060c088ebbc4b31?placeholderIfAbsent=true&apiKey=8bf8aa1dd53644bba65c0d1d31a7930e');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    height: 12px; /* Adjust height if needed */
+    height: 12px;
 }
 
 .cta-wrapper {
     display: flex;
-    gap: 40px 42px;
-}
-
-.sign-in {
-    color: #2e2a36;
-    margin: auto 0;
-}
-
-.get-started-btn {
-    align-self: stretch;
-    border-radius: 30px;
-    background-color: #2e2a36;
-    color: #fff;
-    padding: 14px 24px;
+    gap: 40px;
 }
 
 @media (max-width: 991px) {
+    .cta-wrapper {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        width: 100%;
+    }
+}
+
+.get-started-btn,
+.sign-in {
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.sign-in {
+    background-color: #2e2a36;
+    color: white;
+}
+
+.get-started-btn {
+    background-color: #2e2a36;
+    color: #fff;
+}
+
+@media (max-width: 991px) {
+    .sign-in,
     .get-started-btn {
-        padding: 0 20px;
+        width: 80%;
     }
 }
 
 .main-content {
+    display: flex;
     width: 100%;
     max-width: 1245px;
     margin: 14px 0 0 19px;
+    gap: 20px;
 }
 
 @media (max-width: 991px) {
     .main-content {
-        max-width: 100%;
-    }
-}
-
-.content-wrapper {
-    gap: 20px;
-    display: flex;
-}
-
-@media (max-width: 991px) {
-    .content-wrapper {
         flex-direction: column;
-        align-items: stretch;
-        gap: 0;
+        align-items: center;
+        margin: 0;
     }
 }
 
 .text-column {
     display: flex;
     flex-direction: column;
-    line-height: normal;
     width: 50%;
     margin-left: 0;
 }
@@ -146,9 +154,7 @@
 }
 
 .text-content {
-    display: flex;
     margin-top: 99px;
-    width: 100%;
     flex-direction: column;
     font-family: Uxum Grotesque, sans-serif;
     font-weight: 400;
@@ -156,8 +162,8 @@
 
 @media (max-width: 991px) {
     .text-content {
-        max-width: 100%;
         margin-top: 40px;
+        text-align: center;
     }
 }
 
@@ -169,7 +175,6 @@
 
 @media (max-width: 991px) {
     .hero-title {
-        max-width: 100%;
         font-size: 40px;
         line-height: 57px;
     }
@@ -178,13 +183,12 @@
 .hero-description {
     color: #2e2a36;
     font-size: 16px;
-    line-height: 22px;
     margin-top: 22px;
 }
 
 @media (max-width: 991px) {
     .hero-description {
-        max-width: 100%;
+        text-align: center;
     }
 }
 
@@ -197,32 +201,29 @@
     width: 488px;
     max-width: 100%;
     gap: 20px;
-    flex-wrap: wrap;
     justify-content: space-between;
-    padding: 8px 8px 8px 30px;
+    padding: 8px 30px;
 }
 
 @media (max-width: 991px) {
     .email-form {
+        width: 100%;
         padding-left: 20px;
     }
 }
 
 .email-input {
-    color: #2e2a36;
-    font-size: 16px;
-    line-height: 1.4;
-    margin: auto 0;
+    flex-grow: 1;
     border: none;
     background: transparent;
-    flex-grow: 1;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #2e2a36;
 }
 
 .submit-btn {
-    align-self: stretch;
     border-radius: 30px;
     background-color: #2e2a36;
-    font-size: 17px;
     color: #fff;
     padding: 15px 24px;
     border: none;
@@ -238,7 +239,6 @@
 .image-column {
     display: flex;
     flex-direction: column;
-    line-height: normal;
     width: 50%;
     margin-left: 20px;
 }
@@ -246,50 +246,47 @@
 @media (max-width: 991px) {
     .image-column {
         width: 100%;
+        margin: 0;
     }
 }
 
 .hero-image {
-    aspect-ratio: 1.09;
     object-fit: contain;
-    object-position: center;
     width: 100%;
-    border-radius: 0;
-    flex-grow: 1;
-    background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/cc55d81826508ed48d1d1c070e7fd51cc6e5254b67137b3ea9799f03e13c2710?placeholderIfAbsent=true&apiKey=8bf8aa1dd53644bba65c0d1d31a7930e');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    height: 400px; /* Adjust height as necessary */
+    height: 400px;
 }
 
 @media (max-width: 991px) {
     .hero-image {
-        max-width: 100%;
-        margin-top: 40px;
+        margin-top: 20px;
+        height: auto;
     }
 }
 
 .company-logos {
-    aspect-ratio: 32.26;
-    object-fit: contain;
-    object-position: center;
-    width: auto;
-    align-self: stretch;
-    margin-top: 100px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100px; /* Adjust height as necessary */
-}
-
-.company-logos {
-    background-image: '/Users/gabrielsilvestre/Downloads/image.png';
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    gap: 20px;
 }
 
 @media (max-width: 991px) {
     .company-logos {
-        max-width: 100%;
-        margin-top: 40px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
+.company-logos img {
+    height: 100px;
+    object-fit: contain;
+}
+
+@media (max-width: 991px) {
+    .company-logos img {
+        height: 80px;
     }
 }
