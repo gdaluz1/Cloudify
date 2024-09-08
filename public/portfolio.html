@@ -9,15 +9,14 @@
     <script src="https://alcdn.msauth.net/browser/2.19.0/js/msal-browser.min.js"></script>
 
     <style>
-        
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
             background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
         }
 
-     
         .cloudify-container {
             min-height: 100vh; 
             display: flex;
@@ -47,8 +46,6 @@
             margin: 0 auto;
             padding: 20px;
             text-align: center;
-            font-family: 'Arial', sans-serif;
-            flex-grow: 1; /* Makes the content grow to fill available space */
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a light shadow */
@@ -80,13 +77,26 @@
             margin-bottom: 20px;
         }
 
-       
+        /* Style for the logo image */
+        .logo-image {
+            display: block;
+            margin: 0 auto 20px; /* Center the image with some space below */
+            width: 200px; /* Adjust the width according to your preference */
+            height: auto; /* Maintain aspect ratio */
+        }
+
         footer {
             text-align: center;
             padding: 10px 0;
+            background-color: #2e2a36;
+            color: #f5f5f5;
+            margin-top: auto;
         }
 
-       
+        .footer-text {
+            font-size: 14px;
+        }
+
         .header-wrapper {
             display: flex;
             justify-content: space-between;
@@ -102,6 +112,27 @@
         .cta-wrapper {
             display: flex;
             background-color: transparent;
+        }
+
+        /* Adjust positioning of navigation and image */
+        .header-wrapper {
+            justify-content: center; /* Align navigation elements in center */
+            position: relative;
+        }
+
+        .nav-menu {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .cta-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            background-color: transparent;
+            position: absolute;
+            right: 20px; /* Adjust if necessary to move buttons further right */
+            top: 20px; /* Align them vertically */
         }
     </style>
 </head>
@@ -122,6 +153,9 @@
 
     <main class="main-content">
         <div class="portfolio-content">
+            <!-- Add the Cloudify logo here -->
+            <img src="https://github.com/gdaluz1/Cloudify/blob/c00c5aa3badc6e345b37e80b180a2d73b35a565e/public/image-5.png?raw=true" alt="Cloudify Logo" class="logo-image" />
+            
             <h2>Case Project for Portfolio</h2>
             <p><strong>I'm Gabriel Luz</strong> and I developed this web portal using:</p>
             <ul>
@@ -146,7 +180,7 @@
     </main>
 
     <footer>
-
+        <p class="footer-text">© 2024 Gabriel Luz. All rights reserved.</p>
     </footer>
 </section>
 
