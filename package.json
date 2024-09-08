@@ -2,16 +2,16 @@
   "name": "cloudify-app",
   "version": "1.0.0",
   "description": "A simple Node.js app with Express",
-  "main": "App.js",  // Specify App.js as the entry point
+  "main": "App.js", 
   "scripts": {
-    "start": "node App.js"  // Start script to run App.js
+    "start": "node App.js"  
   },
   "dependencies": {
     "express": "^4.17.1",
     "path": "^0.12.7"
   },
   "engines": {
-    "node": ">=18.0.0"  // Ensure Node version compatible with Azure
+    "node": ">=18.0.0" 
   },
   "author": "Your Name",
   "license": "ISC"
