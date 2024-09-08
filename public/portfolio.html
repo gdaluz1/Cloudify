@@ -9,49 +9,49 @@
     <script src="https://alcdn.msauth.net/browser/2.19.0/js/msal-browser.min.js"></script>
 
     <style>
-        /* Definir que o html e body tenham 100% da altura */
+        /* Set the html and body to 100% height */
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5; /* Cor de fundo que irá preencher a página toda */
+            background-color: #f5f5f5; /* Background color to fill the entire page */
         }
 
-        /* Garantir que o container principal ocupe pelo menos 100% da altura da viewport */
+        /* Ensure that the main container occupies at least 100% of the viewport height */
         .cloudify-container {
-            min-height: 100vh; /* 100vh significa 100% da altura da viewport */
+            min-height: 100vh; /* 100vh means 100% of the viewport height */
             display: flex;
             flex-direction: column;
         }
 
-        /* Estilo para todos os botões */
+        /* Style for all buttons */
         .nav-text, .sign-in, .get-started-btn {
             background-color: #2e2a36;
             color: #f5f5f5;
             padding: 14px 24px;
             text-decoration: none;
-            border-radius: 30px; /* Arredondamento dos botões */
+            border-radius: 30px; /* Rounded buttons */
             margin: 5px;
             font-size: 16px;
             display: inline-block;
         }
 
-        /* Efeito hover para todos os botões */
+        /* Hover effect for all buttons */
         .nav-text:hover, .sign-in:hover, .get-started-btn:hover {
             background-color: #4b445e;
         }
 
-        /* Ajuste do conteúdo do portfólio */
+        /* Portfolio content adjustment */
         .portfolio-content {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             text-align: center;
             font-family: 'Arial', sans-serif;
-            flex-grow: 1; /* Faz o conteúdo crescer para preencher o espaço disponível */
+            flex-grow: 1; /* Makes the content grow to fill available space */
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra leve */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a light shadow */
             margin-top: 50px;
         }
 
@@ -80,13 +80,13 @@
             margin-bottom: 20px;
         }
 
-        /* Garantir que o footer fique no fim da página */
+        /* Ensure the footer stays at the bottom of the page */
         footer {
             text-align: center;
             padding: 10px 0;
         }
 
-        /* Centralizando e melhorando o layout do header */
+        /* Center and improve the layout of the header */
         .header-wrapper {
             display: flex;
             justify-content: space-between;
