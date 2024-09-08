@@ -151,7 +151,7 @@
         try {
             const loginResponse = await msalInstance.loginPopup(loginRequest);
             console.log("Login successful!", loginResponse);
-            window.location.href = "/dashboard";
+            window.location.href = "/portfolio.html";
         } catch (error) {
             console.error("Login failed", error);
         }
