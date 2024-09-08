@@ -2,8 +2,8 @@ const express = require('express');
 const path = require('path'); 
 const app = express();
 
-// Use the port provided by Azure or default to 8080
-const port = process.env.PORT || 8080; 
+// Use the port provided by Azure or default to 8080 for local development
+const port = process.env.PORT || 8080;
 
 // Serve static files (CSS, images, JS) from the "public" folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -31,7 +31,7 @@ app.get('/dashboard', (req, res) => {
     res.send("Welcome to your dashboard! You are signed in.");
 });
 
-// Start the server and listen on the port
+// Start the server and listen on the correct port
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
