@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudify Portal - Dropdown Example</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Include MSAL.js from the CDN -->
+    <script src="https://alcdn.msauth.net/browser/2.19.0/js/msal-browser.min.js"></script>
+
+    <style>
+        /* Definir que o html e body tenham 100% da altura */
+        html, body {
+            height: auto;
+            margin: auto;
+            padding:0;
+            background-color: #f5f5f5; /* Cor de fundo que irá preencher a página toda */
+        }
+
+        /* Garantir que o container principal ocupe pelo menos 100% da altura da viewport */
+        .cloudify-container {
+            min-height: 100vh; /* 100vh significa 100% da altura da viewport */
+            display: flex;
+            flex-direction: column;
+        }
+        /* Dropdown menu container */
+        .nav-item {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f4f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        /* Dropdown links */
+        .dropdown-content a {
+            color: #2e2a36;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        /* Show the dropdown menu on hover */
+        .nav-item:hover .dropdown-content {
+            display: flex;
+        }
+
+        /* Style the main navigation */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Basic styles for the sign-in button */
+        .sign-in {
+            background-color: #2e2a36;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .trust-text {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center; /* Center text */
+            position: static;
+
+        }
+    </style>
+</head>
+<body>
+<section class="cloudify-container">
+    <header class="header-wrapper">
+        <nav class="nav-menu">
+            <div class="nav-item">
+                <span class="nav-text">Product</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-text">Resources</span>
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/91f3c71d37f140ab0d3697e588d02d8ef8bcfc7ee0b26e55c060c088ebbc4b31?placeholderIfAbsent=true&apiKey=8bf8aa1dd53644bba65c0d1d31a7930e" alt="Dropdown Icon" class="dropdown-icon" />
+                <!-- Dropdown content -->
+                <div class="dropdown-content">
+                    <a href="/portfolio.html">Portfolio</a>
+                </div>
+                </div>
+            </div>
+            <span class="nav-text">Pricing</span>
+            <div class="nav-item">
+                <span class="nav-text">Company</span>
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/91f3c71d37f140ab0d3697e588d02d8ef8bcfc7ee0b26e55c060c088ebbc4b31?placeholderIfAbsent=true&apiKey=8bf8aa1dd53644bba65c0d1d31a7930e" alt="Dropdown Icon" class="dropdown-icon" />
+            </div>
+            <span class="nav-text">Request Demo</span>
+        </nav>
+        <div class="cta-wrapper">
+            <!-- Sign-in button -->
+            <a href="#" class="sign-in" id="signInButton">Sign In</a>
+            <a href="index.html" class="get-started-btn">Get Started</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="content-wrapper">
+            <div class="text-column">
+                <div class="text-content">
+                    <h1 class="hero-title">
+                        Empower Your Customer Interactions with Our Cloudify Solution
+                    </h1>
+                    <p class="hero-description">
+                        Engage customers effortlessly through Voice, Email, Live Chat, SMS, and WhatsApp,
+                        ensuring a smooth and personalized service experience.
+                    </p>
+                    <form class="email-form">
+                        <input type="email" class="email-input" placeholder="Enter your email" required />
+                        <button type="submit" class="submit-btn">Get Started</button>
+                    </form>
+                </div>
+            </div>
+            <div class="image-column">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cc55d81826508ed48d1d1c070e7fd51cc6e5254b67137b3ea9799f03e13c2710?placeholderIfAbsent=true&apiKey=8bf8aa1dd53644bba65c0d1d31a7930e" alt="Cloudify Solution Interface" class="hero-image" />
+            </div>
+        </div>
+    </main>
+
+    <h4 class="trust-text">Trusted by 500+ Companies</h4>
+    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/38704e989ce88ef8670e697fd0e623e0109d296a1481964a6baba854ae39e276?placeholderIfAbsent=true&apiKey=8bf8aa1dd53644bba65c0d1d31a7930e" alt="Logos of companies trusting Cloudify" class="company-logos" />
+</section>
+
+<!-- JavaScript to handle Microsoft Sign-In -->
+<script>
+    // Configure MSAL.js with your app's Client ID and other details
+    const msalConfig = {
+        auth: {
+            clientId: "418cd301-05ed-4780-a1d7-7f3c5e31834e", // Replace with your Microsoft Client ID
+            redirectUri: "http://localhost:3030/auth/redirect", // Change to your redirect URL
+        }
+    };
+
+    // Create a new MSAL instance
+    const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+    // Function to handle sign-in
+    async function signIn() {
+        const loginRequest = {
+            scopes: ["user.read"], // Scopes you want to request
+        };
+
+        try {
+            // Login using a popup
+            const loginResponse = await msalInstance.loginPopup(loginRequest);
+            console.log("Login successful!", loginResponse);
+
+            // You can now redirect the user or perform other actions
+            window.location.href = "/dashboard"; // Redirect to dashboard after sign-in
+        } catch (error) {
+            console.error("Login failed", error);
+        }
+    }
+
+    // Attach the sign-in handler to the button
+    document.getElementById("signInButton").addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent default link behavior
+        signIn(); // Trigger sign-in
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Gabriel Luz</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Include MSAL.js from the CDN -->
+    <script src="https://alcdn.msauth.net/browser/2.19.0/js/msal-browser.min.js"></script>
+
+    <style>
+        /* Definir que o html e body tenham 100% da altura */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* Cor de fundo que irá preencher a página toda */
+        }
+
+        /* Garantir que o container principal ocupe pelo menos 100% da altura da viewport */
+        .cloudify-container {
+            min-height: 100vh; /* 100vh significa 100% da altura da viewport */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilo para todos os botões */
+        .nav-text, .sign-in, .get-started-btn {
+            background-color: #2e2a36;
+            color: #f5f5f5;
+            padding: 14px 24px;
+            text-decoration: none;
+            border-radius: 30px; /* Arredondamento dos botões */
+            margin: 5px;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        /* Efeito hover para todos os botões */
+        .nav-text:hover, .sign-in:hover, .get-started-btn:hover {
+            background-color: #4b445e;
+        }
+
+        /* Ajuste do conteúdo do portfólio */
+        .portfolio-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            flex-grow: 1; /* Faz o conteúdo crescer para preencher o espaço disponível */
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra leve */
+            margin-top: 50px;
+        }
+
+        .portfolio-content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #2e2a36;
+        }
+
+        .portfolio-content ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .portfolio-content ul li {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .portfolio-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Garantir que o footer fique no fim da página */
+        footer {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* Centralizando e melhorando o layout do header */
+        .header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .cta-wrapper {
+            display: flex;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+<section class="cloudify-container">
+    <header class="header-wrapper">
+        <nav class="nav-menu">
+            <div class="nav-item">
+                <a href="/index.html" class="nav-text">Home</a>
+            </div>
+        </nav>
+        <div class="cta-wrapper">
+            <!-- Sign-in button -->
+            <a href="#" class="sign-in" id="signInButton">Sign In</a>
+            <a href="index.html" class="get-started-btn">Get Started</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="portfolio-content">
+            <h2>Case Project for Portfolio</h2>
+            <p><strong>I'm Gabriel Luz</strong> and I developed this web portal using:</p>
+            <ul>
+                <li>Node.js</li>
+                <li>HTML and CSS</li>
+                <li>Integrated MSAL Authentication</li>
+            </ul>
+            <p>
+                I used WebStorm as the IDE to build this project, and the design was created on Figma by
+                <strong>Anastasiia</strong>.
+            </p>
+            <p>
+                This is a demonstration project aimed at showcasing my development skills.
+            </p>
+            <p><strong>Links:</strong></p>
+            <ul>
+                <li><a href="https://www.linkedin.com/in/gabriel-silvestre1/" target="_blank">My LinkedIn</a></li>
+                <li><a href="https://www.behance.net/gallery/206899757/Cloudify-Saas-Website-Homepage" target="_blank">Link for WebSite Case Portfolio</a></li>
+                <li><a href="https://www.linkedin.com/in/anastasiia-firsova-a2a871235/" target="_blank">LinkedIn of Designer Anastasiia</a></li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+
+    </footer>
+</section>
+
+<!-- JavaScript to handle Microsoft Sign-In -->
+<script>
+    // Configure MSAL.js with your app's Client ID and other details
+    const msalConfig = {
+        auth: {
+            clientId: "418cd301-05ed-4780-a1d7-7f3c5e31834e", // Replace with your Microsoft Client ID
+            redirectUri: "http://localhost:3030/auth/redirect", // Change to your redirect URL
+        }
+    };
+
+    // Create a new MSAL instance
+    const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+    // Function to handle sign-in
+    async function signIn() {
+        const loginRequest = {
+            scopes: ["user.read"], // Scopes you want to request
+        };
+
+        try {
+            // Login using a popup
+            const loginResponse = await msalInstance.loginPopup(loginRequest);
+            console.log("Login successful!", loginResponse);
+
+            // You can now redirect the user or perform other actions
+            window.location.href = "/dashboard"; // Redirect to dashboard after sign-in
+        } catch (error) {
+            console.error("Login failed", error);
+        }
+    }
+
+    // Attach the sign-in handler to the button
+    document.getElementById("signInButton").addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent default link behavior
+        signIn(); // Trigger sign-in
+    });
+</script>
+</body>
+</html>
