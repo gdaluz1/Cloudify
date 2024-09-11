@@ -189,7 +189,15 @@ footer {
 
 <!-- JavaScript to handle Microsoft Sign-In -->
 <script>
-    // Configure MSAL.js with your app's Client ID and other details
+      function displayUserName() {
+        const userName = localStorage.getItem("userName");
+        if (userName) {
+            document.getElementById("userNameDisplay").textContent = `Welcome, ${userName}!`;
+        }
+    }
+
+    window.onload = displayUserName;
+    
     const msalConfig = {
         auth: {
             clientId: "418cd301-05ed-4780-a1d7-7f3c5e31834e", // Replace with your Microsoft Client ID
