@@ -197,31 +197,33 @@ footer {
         }
     };
 
-    // Create a new MSAL instance
     const msalInstance = new msal.PublicClientApplication(msalConfig);
 
-    // Function to handle sign-in
     async function signIn() {
         const loginRequest = {
-            scopes: ["user.read"], // Scopes you want to request
+            scopes: ["user.read"],
         };
 
         try {
-            // Login using a popup
             const loginResponse = await msalInstance.loginPopup(loginRequest);
             console.log("Login successful!", loginResponse);
 
-            // You can now redirect the user or perform other actions
-            window.location.href = "/index.html"; // Redirect to dashboard after sign-in
+            // Extract the user's name from the login response
+            const userName = loginResponse.account.name;
+
+            // Store the user's name in localStorage so it can be accessed in portfolio.html
+            localStorage.setItem("userName", userName);
+
+            // Redirect to portfolio.html
+            window.location.href = "/portfolio.html";
         } catch (error) {
             console.error("Login failed", error);
         }
     }
 
-    // Attach the sign-in handler to the button
     document.getElementById("signInButton").addEventListener("click", (event) => {
-        event.preventDefault(); // Prevent default link behavior
-        signIn(); // Trigger sign-in
+        event.preventDefault();
+        signIn();
     });
 </script>
 </body>
