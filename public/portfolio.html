@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Gabriel Luz</title>
     <link rel="stylesheet" href="/css/style.css">
-    <!-- Include MSAL.js from the CDN -->
     <script src="https://alcdn.msauth.net/browser/2.19.0/js/msal-browser.min.js"></script>
-
     <style>
         html, body {
             height: 100%;
@@ -18,29 +16,26 @@
         }
 
         .cloudify-container {
-            min-height: 100vh; 
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* Style for all buttons */
         .nav-text, .sign-in, .get-started-btn {
             background-color: #2e2a36;
             color: #f5f5f5;
             padding: 14px 24px;
             text-decoration: none;
-            border-radius: 30px; /* Rounded buttons */
+            border-radius: 30px;
             margin: 5px;
             font-size: 16px;
             display: inline-block;
         }
 
-        /* Hover effect for all buttons */
         .nav-text:hover, .sign-in:hover, .get-started-btn:hover {
             background-color: #4b445e;
         }
 
-        /* Portfolio content adjustment */
         .portfolio-content {
             max-width: 800px;
             margin: 0 auto;
@@ -48,7 +43,7 @@
             text-align: center;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a light shadow */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-top: 50px;
         }
 
@@ -77,28 +72,25 @@
             margin-bottom: 20px;
         }
 
-        /* Style for the logo image */
         .logo-image {
             display: block;
-            margin: 0 auto 20px; /* Center the image with some space below */
-            width: 200px; /* Adjust the width according to your preference */
-            height: auto; /* Maintain aspect ratio */
+            margin: 0 auto 20px;
+            width: 200px;
+            height: auto;
         }
 
+        footer {
+            text-align: center;
+            padding: 14px 24px;
+            background-color: #2e2a36;
+            color: #f5f5f5;
+            margin-top: auto;
+            border-radius: 30px;
+        }
 
-footer {
-    text-align: center;
-    padding: 14px 24px;
-    background-color: #2e2a36;
-    color: #f5f5f5;
-    margin-top: auto;
-    border-radius: 30px;
-}
-
-/* Footer text style */
-.footer-text {
-    margin: 0;
-}
+        .footer-text {
+            margin: 0;
+        }
 
         .header-wrapper {
             display: flex;
@@ -117,9 +109,8 @@ footer {
             background-color: transparent;
         }
 
-        /* Adjust positioning of navigation and image */
         .header-wrapper {
-            justify-content: center; /* Align navigation elements in center */
+            justify-content: center;
             position: relative;
         }
 
@@ -134,8 +125,8 @@ footer {
             justify-content: flex-end;
             background-color: transparent;
             position: absolute;
-            right: 20px; /* Adjust if necessary to move buttons further right */
-            top: 20px; /* Align them vertically */
+            right: 20px;
+            top: 20px;
         }
     </style>
 </head>
@@ -148,7 +139,6 @@ footer {
             </div>
         </nav>
         <div class="cta-wrapper">
-            <!-- Sign-in button -->
             <a href="#" class="sign-in" id="signInButton">Sign In</a>
             <a href="index.html" class="get-started-btn">Get Started</a>
         </div>
@@ -156,9 +146,11 @@ footer {
 
     <main class="main-content">
         <div class="portfolio-content">
-            <!-- Add the Cloudify logo here -->
             <img src="https://github.com/gdaluz1/Cloudify/blob/c00c5aa3badc6e345b37e80b180a2d73b35a565e/public/image-5.png?raw=true" alt="Cloudify Logo" class="logo-image" />
-            
+
+    
+            <div id="userNameDisplay"></div>
+
             <h2>Case Project for Portfolio</h2>
             <p><strong>I'm Gabriel Luz</strong> and I developed this web portal using:</p>
             <ul>
@@ -166,13 +158,9 @@ footer {
                 <li>HTML and CSS</li>
                 <li>Integrated MSAL Authentication</li>
             </ul>
-            <p>
-                I used WebStorm as the IDE to build this project, and the design was created on Figma by
-                <strong>Anastasiia</strong>.
-            </p>
-            <p>
-                This is a demonstration project aimed at showcasing my development skills.
-            </p>
+            <p>I used WebStorm as the IDE to build this project, and the design was created on Figma by
+                <strong>Anastasiia</strong>.</p>
+            <p>This is a demonstration project aimed at showcasing my development skills.</p>
             <p><strong>Links:</strong></p>
             <ul>
                 <li><a href="https://www.linkedin.com/in/gabriel-silvestre1/" target="_blank">My LinkedIn</a></li>
@@ -187,9 +175,8 @@ footer {
     </footer>
 </section>
 
-<!-- JavaScript to handle Microsoft Sign-In -->
 <script>
-      function displayUserName() {
+    function displayUserName() {
         const userName = localStorage.getItem("userName");
         if (userName) {
             document.getElementById("userNameDisplay").textContent = `Welcome, ${userName}!`;
@@ -197,11 +184,11 @@ footer {
     }
 
     window.onload = displayUserName;
-    
+
     const msalConfig = {
         auth: {
-            clientId: "418cd301-05ed-4780-a1d7-7f3c5e31834e", // Replace with your Microsoft Client ID
-            redirectUri: "https://cloudify-btgdfrc9hzc3h4fj.eastus-01.azurewebsites.net/portfolio.html", // Change to your redirect URL
+            clientId: "418cd301-05ed-4780-a1d7-7f3c5e31834e",
+            redirectUri: "https://cloudify-btgdfrc9hzc3h4fj.eastus-01.azurewebsites.net/portfolio.html",
         }
     };
 
@@ -216,13 +203,8 @@ footer {
             const loginResponse = await msalInstance.loginPopup(loginRequest);
             console.log("Login successful!", loginResponse);
 
-            // Extract the user's name from the login response
             const userName = loginResponse.account.name;
-
-            // Store the user's name in localStorage so it can be accessed in portfolio.html
             localStorage.setItem("userName", userName);
-
-            // Redirect to portfolio.html
             window.location.href = "/portfolio.html";
         } catch (error) {
             console.error("Login failed", error);
