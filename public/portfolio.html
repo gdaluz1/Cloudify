@@ -191,15 +191,8 @@
         };
 
         try {
-           
-            const loginResponse = await msalInstance.loginPopup(loginRequest);
-            console.log("Login successful!", loginResponse);
-
-          
-            localStorage.setItem("userToken", loginResponse.accessToken);
-
-           
-            window.location.href = "/portfolio.html";
+            // Usa loginRedirect para redirecionar o usuário para a página de login
+            await msalInstance.loginRedirect(loginRequest);
         } catch (error) {
             console.error("Login failed", error);
         }
@@ -210,5 +203,6 @@
         signIn();
     });
 </script>
+
 </body>
 </html>
