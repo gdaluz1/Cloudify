@@ -145,20 +145,18 @@
 
     async function signIn() {
         const loginRequest = {
-            scopes: ["00000002-0000-0000-c000-000000000000/.default"],
+            scopes: ["00000002-0000-0000-c000-000000000000/.default"]
         };
 
         try {
+           
             const loginResponse = await msalInstance.loginPopup(loginRequest);
             console.log("Login successful!", loginResponse);
 
-            // Extract the user's name from the login response
-            const userName = loginResponse.account.name;
+          
+            localStorage.setItem("userToken", loginResponse.accessToken);
 
-            // Store the user's name in localStorage so it can be accessed in portfolio.html
-            localStorage.setItem("userName", userName);
-
-            // Redirect to portfolio.html
+           
             window.location.href = "/portfolio.html";
         } catch (error) {
             console.error("Login failed", error);
