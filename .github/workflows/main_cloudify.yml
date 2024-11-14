@@ -51,8 +51,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
+          auth-type: spn # Adiciona tipo de autenticação como Service Principal
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_62A63A3335484A05B904112E32F5AA6E }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }} # Adicionado o client-secret
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }} # Agora o client-secret será reconhecido
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_52415CA721EA433E86BCE84A3C119C48 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DB0C90950B1F4890848CD0C3F91B0AB7 }}
 
