@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy Node.js app to Azure Web App - Cloudify
 
 on:
@@ -38,6 +41,8 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -51,11 +56,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          auth-type: spn # Adiciona tipo de autenticação como Service Principal
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_62A63A3335484A05B904112E32F5AA6E }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }} # Agora o client-secret será reconhecido
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_52415CA721EA433E86BCE84A3C119C48 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DB0C90950B1F4890848CD0C3F91B0AB7 }}
+          client-id: 418cd301-05ed-4780-a1d7-7f3c5e31834e
+          tenant-id: c384e4a9-d407-421d-9469-7bb49404e866
+          subscription-id: 64376299-7606-462c-9aec-d3454a3f2e89
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -64,3 +67,4 @@ jobs:
           app-name: 'Cloudify'
           slot-name: 'Production'
           package: .
+          
