@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Node.js app to Azure Web App - Cloudify
 
 on:
@@ -41,8 +38,6 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -57,6 +52,7 @@ jobs:
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_62A63A3335484A05B904112E32F5AA6E }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }} # Adicionado o client-secret
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_52415CA721EA433E86BCE84A3C119C48 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DB0C90950B1F4890848CD0C3F91B0AB7 }}
 
@@ -67,4 +63,3 @@ jobs:
           app-name: 'Cloudify'
           slot-name: 'Production'
           package: .
-          
