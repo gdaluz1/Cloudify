@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Gabriel Luz</title>
     <link rel="stylesheet" href="/css/style.css">
-    <!-- Auth0 SPA SDK -->
-    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0.2/auth0-spa-js.production.js"></script>
+    <!-- Auth0 SPA SDK UMD Bundle -->
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0.2/auth0-spa-js.umd.js"></script>
     <style>
         html, body {
             height: 100%;
@@ -160,11 +160,12 @@
 </section>
 
 <script>
-  // Single Auth0 client declaration
+  // Declare auth0Client globally
   var auth0Client;
 
   async function initAuth0() {
-    auth0Client = await createAuth0Client({
+    // createAuth0Client is now available via UMD bundle
+    auth0Client = await window.createAuth0Client({
       domain: 'dev-uk-identityteam.eu.auth0.com',
       client_id: 'J86PAG2kXUXOc1H99Q9XxC8ndjUHS73C',
       redirect_uri: window.location.origin + '/portfolio.html'
@@ -176,7 +177,7 @@
       window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-    // Update UI based on auth state
+    // Update UI
     const isAuthenticated = await auth0Client.isAuthenticated();
     document.getElementById('signInButton').style.display = isAuthenticated ? 'none' : 'inline-block';
     document.getElementById('signOutButton').style.display = isAuthenticated ? 'inline-block' : 'none';
@@ -187,18 +188,24 @@
   }
 
   async function signIn() {
+    if (!auth0Client) {
+      console.error('Auth0 client not initialized');
+      return;
+    }
     await auth0Client.loginWithRedirect();
   }
 
   async function signOut() {
-    auth0Client.logout({ returnTo: window.location.origin + '/portfolio.html' });
+    if (auth0Client) {
+      auth0Client.logout({ returnTo: window.location.origin + '/portfolio.html' });
+    }
   }
 
-  document.getElementById('signInButton').addEventListener('click', (e) => {
+  document.getElementById('signInButton').addEventListener('click', function(e) {
     e.preventDefault();
     signIn();
   });
-  document.getElementById('signOutButton').addEventListener('click', (e) => {
+  document.getElementById('signOutButton').addEventListener('click', function(e) {
     e.preventDefault();
     signOut();
   });
