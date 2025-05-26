@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Gabriel Luz</title>
     <link rel="stylesheet" href="/css/style.css">
-    <script src="https://alcdn.msauth.net/browser/2.19.0/js/msal-browser.min.js"></script>
+    <!-- Auth0 SPA SDK -->
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0.2/auth0-spa-js.production.js"></script>
     <style>
         html, body {
             height: 100%;
@@ -30,6 +31,7 @@
             margin: 5px;
             font-size: 16px;
             display: inline-block;
+            cursor: pointer;
         }
 
         .nav-text:hover, .sign-in:hover, .get-started-btn:hover {
@@ -97,33 +99,18 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
+            position: relative;
         }
 
         .nav-menu {
             display: flex;
             align-items: center;
-        }
-
-        .cta-wrapper {
-            display: flex;
-            background-color: transparent;
-        }
-
-        .header-wrapper {
-            justify-content: center;
-            position: relative;
-        }
-
-        .nav-menu {
             flex: 1;
-            display: flex;
-            justify-content: flex-start;
         }
 
         .cta-wrapper {
             display: flex;
             justify-content: flex-end;
-            background-color: transparent;
             position: absolute;
             right: 20px;
             top: 20px;
@@ -134,12 +121,11 @@
 <section class="cloudify-container">
     <header class="header-wrapper">
         <nav class="nav-menu">
-            <div class="nav-item">
-                <a href="/index.html" class="nav-text">Home</a>
-            </div>
+            <a href="/index.html" class="nav-text">Home</a>
         </nav>
         <div class="cta-wrapper">
-            <a href="#" class="sign-in" id="signInButton">Sign In</a>
+            <button class="sign-in" id="signInButton">Sign In</button>
+            <button class="sign-in" id="signOutButton" style="display:none;">Sign Out</button>
             <a href="index.html" class="get-started-btn">Get Started</a>
         </div>
     </header>
@@ -148,7 +134,6 @@
         <div class="portfolio-content">
             <img src="https://github.com/gdaluz1/Cloudify/blob/c00c5aa3badc6e345b37e80b180a2d73b35a565e/public/image-5.png?raw=true" alt="Cloudify Logo" class="logo-image" />
 
-    
             <div id="userNameDisplay"></div>
 
             <h2>Case Project for Portfolio</h2>
@@ -156,10 +141,9 @@
             <ul>
                 <li>Node.js</li>
                 <li>HTML and CSS</li>
-                <li>Integrated MSAL Authentication</li>
+                <li>Integrated Auth0 Authentication</li>
             </ul>
-            <p>I used WebStorm as the IDE to build this project, and the design was created on Figma by
-                <strong>Anastasiia</strong>.</p>
+            <p>I used WebStorm as the IDE to build this project, and the design was created on Figma by <strong>Anastasiia</strong>.</p>
             <p>This is a demonstration project aimed at showcasing my development skills.</p>
             <p><strong>Links:</strong></p>
             <ul>
@@ -176,33 +160,50 @@
 </section>
 
 <script>
-    const msalConfig = {
-        auth: {
-            clientId: "418cd301-05ed-4780-a1d7-7f3c5e31834e",
-            redirectUri: "https://cloudify-btgdfrc9hzc3h4fj.eastus-01.azurewebsites.net/portfolio.html",
-        }
-    };
+  // Single Auth0 client declaration
+  var auth0Client;
 
-    const msalInstance = new msal.PublicClientApplication(msalConfig);
+  async function initAuth0() {
+    auth0Client = await createAuth0Client({
+      domain: 'dev-uk-identityteam.eu.auth0.com',
+      client_id: 'J86PAG2kXUXOc1H99Q9XxC8ndjUHS73C',
+      redirect_uri: window.location.origin + '/portfolio.html'
+    });
 
-    async function signIn() {
-        const loginRequest = {
-            scopes: ["00000002-0000-0000-c000-000000000000/.default"]
-        };
-
-        try {
-            // Usa loginRedirect para redirecionar o usuário para a página de login
-            await msalInstance.loginRedirect(loginRequest);
-        } catch (error) {
-            console.error("Login failed", error);
-        }
+    // Handle redirect callback
+    if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+      await auth0Client.handleRedirectCallback();
+      window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-    document.getElementById("signInButton").addEventListener("click", (event) => {
-        event.preventDefault();
-        signIn();
-    });
-</script>
+    // Update UI based on auth state
+    const isAuthenticated = await auth0Client.isAuthenticated();
+    document.getElementById('signInButton').style.display = isAuthenticated ? 'none' : 'inline-block';
+    document.getElementById('signOutButton').style.display = isAuthenticated ? 'inline-block' : 'none';
+    if (isAuthenticated) {
+      const user = await auth0Client.getUser();
+      document.getElementById('userNameDisplay').innerText = `Welcome, ${user.name}`;
+    }
+  }
 
+  async function signIn() {
+    await auth0Client.loginWithRedirect();
+  }
+
+  async function signOut() {
+    auth0Client.logout({ returnTo: window.location.origin + '/portfolio.html' });
+  }
+
+  document.getElementById('signInButton').addEventListener('click', (e) => {
+    e.preventDefault();
+    signIn();
+  });
+  document.getElementById('signOutButton').addEventListener('click', (e) => {
+    e.preventDefault();
+    signOut();
+  });
+
+  window.addEventListener('load', initAuth0);
+</script>
 </body>
 </html>
