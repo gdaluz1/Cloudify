@@ -1,183 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Gabriel Luz</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <!-- Auth0 SPA SDK UMD Bundle -->
-    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0.2/auth0-spa-js.umd.js"></script>
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            font-family: 'Arial', sans-serif;
-        }
-
-        .cloudify-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .nav-text, .sign-in, .get-started-btn {
-            background-color: #2e2a36;
-            color: #f5f5f5;
-            padding: 14px 24px;
-            text-decoration: none;
-            border-radius: 30px;
-            margin: 5px;
-            font-size: 16px;
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        .nav-text:hover, .sign-in:hover, .get-started-btn:hover {
-            background-color: #4b445e;
-        }
-
-        .portfolio-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-        }
-
-        .portfolio-content h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            color: #2e2a36;
-        }
-
-        .portfolio-content ul {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 20px;
-        }
-
-        .portfolio-content ul li {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #555;
-        }
-
-        .portfolio-content p {
-            font-size: 18px;
-            line-height: 1.6;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .logo-image {
-            display: block;
-            margin: 0 auto 20px;
-            width: 200px;
-            height: auto;
-        }
-
-        footer {
-            text-align: center;
-            padding: 14px 24px;
-            background-color: #2e2a36;
-            color: #f5f5f5;
-            margin-top: auto;
-            border-radius: 30px;
-        }
-
-        .footer-text {
-            margin: 0;
-        }
-
-        .header-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            flex: 1;
-        }
-
-        .cta-wrapper {
-            display: flex;
-            justify-content: flex-end;
-            position: absolute;
-            right: 20px;
-            top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Gabriel Luz</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    html, body { height:100%; margin:0; padding:0; background:#f5f5f5; font-family:Arial, sans-serif; }
+    .cloudify-container { min-height:100vh; display:flex; flex-direction:column; }
+    .nav-text, .sign-in, .get-started-btn { background-color:#2e2a36; color:#f5f5f5; padding:14px 24px; text-decoration:none; border-radius:30px; margin:5px; font-size:16px; display:inline-block; cursor:pointer; }
+    .nav-text:hover, .sign-in:hover, .get-started-btn:hover { background-color:#4b445e; }
+    .portfolio-content { max-width:800px; margin:50px auto 0; padding:20px; text-align:center; background:white; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
+    .portfolio-content h2 { font-size:32px; margin-bottom:20px; color:#2e2a36; }
+    .portfolio-content ul { list-style:none; padding:0; margin-bottom:20px; }
+    .portfolio-content ul li { font-size:18px; margin-bottom:10px; color:#555; }
+    .portfolio-content p { font-size:18px; line-height:1.6; color:#666; margin-bottom:20px; }
+    .logo-image { display:block; margin:0 auto 20px; width:200px; }
+    footer { text-align:center; padding:14px 24px; background:#2e2a36; color:#f5f5f5; margin-top:auto; border-radius:30px; }
+    .footer-text { margin:0; }
+    .header-wrapper { display:flex; justify-content:space-between; align-items:center; padding:20px; position:relative; }
+    .nav-menu { display:flex; align-items:center; flex:1; }
+    .cta-wrapper { display:flex; justify-content:flex-end; position:absolute; right:20px; top:20px; }
+  </style>
 </head>
 <body>
 <section class="cloudify-container">
-    <header class="header-wrapper">
-        <nav class="nav-menu">
-            <a href="/index.html" class="nav-text">Home</a>
-        </nav>
-        <div class="cta-wrapper">
-            <button class="sign-in" id="signInButton">Sign In</button>
-            <button class="sign-in" id="signOutButton" style="display:none;">Sign Out</button>
-            <a href="index.html" class="get-started-btn">Get Started</a>
-        </div>
-    </header>
+  <header class="header-wrapper">
+    <nav class="nav-menu">
+      <a href="/index.html" class="nav-text">Home</a>
+    </nav>
+    <div class="cta-wrapper">
+      <button class="sign-in" id="signInButton">Sign In</button>
+      <button class="sign-in" id="signOutButton" style="display:none;">Sign Out</button>
+      <a href="index.html" class="get-started-btn">Get Started</a>
+    </div>
+  </header>
 
-    <main class="main-content">
-        <div class="portfolio-content">
-            <img src="https://github.com/gdaluz1/Cloudify/blob/c00c5aa3badc6e345b37e80b180a2d73b35a565e/public/image-5.png?raw=true" alt="Cloudify Logo" class="logo-image" />
+  <main>
+    <div class="portfolio-content">
+      <img src="https://github.com/gdaluz1/Cloudify/blob/c00c5aa3badc6e345b37e80b180a2d73b35a565e/public/image-5.png?raw=true" alt="Cloudify Logo" class="logo-image" />
+      <div id="userNameDisplay"></div>
+      <h2>Case Project for Portfolio</h2>
+      <p><strong>I'm Gabriel Luz</strong> and I developed this web portal using:</p>
+      <ul>
+        <li>Node.js</li>
+        <li>HTML and CSS</li>
+        <li>Integrated Auth0 Authentication</li>
+      </ul>
+      <p>I used WebStorm as the IDE to build this project, and the design was created on Figma by <strong>Anastasiia</strong>.</p>
+      <p>This is a demonstration project aimed at showcasing my development skills.</p>
+      <p><strong>Links:</strong></p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/gabriel-silvestre1/" target="_blank">My LinkedIn</a></li>
+        <li><a href="https://www.behance.net/gallery/206899757/Cloudify-Saas-Website-Homepage" target="_blank">Behance Case Portfolio</a></li>
+        <li><a href="https://www.linkedin.com/in/anastasiia-firsova-a2a871235/" target="_blank">Designer Anastasiia</a></li>
+      </ul>
+    </div>
+  </main>
 
-            <div id="userNameDisplay"></div>
-
-            <h2>Case Project for Portfolio</h2>
-            <p><strong>I'm Gabriel Luz</strong> and I developed this web portal using:</p>
-            <ul>
-                <li>Node.js</li>
-                <li>HTML and CSS</li>
-                <li>Integrated Auth0 Authentication</li>
-            </ul>
-            <p>I used WebStorm as the IDE to build this project, and the design was created on Figma by <strong>Anastasiia</strong>.</p>
-            <p>This is a demonstration project aimed at showcasing my development skills.</p>
-            <p><strong>Links:</strong></p>
-            <ul>
-                <li><a href="https://www.linkedin.com/in/gabriel-silvestre1/" target="_blank">My LinkedIn</a></li>
-                <li><a href="https://www.behance.net/gallery/206899757/Cloudify-Saas-Website-Homepage" target="_blank">Link for WebSite Case Portfolio</a></li>
-                <li><a href="https://www.linkedin.com/in/anastasiia-firsova-a2a871235/" target="_blank">LinkedIn of Designer Anastasiia</a></li>
-            </ul>
-        </div>
-    </main>
-
-    <footer>
-        <p class="footer-text">© 2024 Gabriel Luz. All rights reserved.</p>
-    </footer>
+  <footer>
+    <p class="footer-text">© 2024 Gabriel Luz. All rights reserved.</p>
+  </footer>
 </section>
 
-<script>
-  // Declare auth0Client globally
-  var auth0Client;
+<!-- Use ES module for Auth0 SDK -->
+<script type="module">
+  import { createAuth0Client } from 'https://cdn.auth0.com/js/auth0-spa-js/2.0.2/auth0-spa-js.production.js';
+
+  let auth0Client;
 
   async function initAuth0() {
-    // createAuth0Client is now available via UMD bundle
-    auth0Client = await window.createAuth0Client({
+    auth0Client = await createAuth0Client({
       domain: 'dev-uk-identityteam.eu.auth0.com',
       client_id: 'J86PAG2kXUXOc1H99Q9XxC8ndjUHS73C',
       redirect_uri: window.location.origin + '/portfolio.html'
     });
 
-    // Handle redirect callback
     if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
       await auth0Client.handleRedirectCallback();
       window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-    // Update UI
     const isAuthenticated = await auth0Client.isAuthenticated();
     document.getElementById('signInButton').style.display = isAuthenticated ? 'none' : 'inline-block';
     document.getElementById('signOutButton').style.display = isAuthenticated ? 'inline-block' : 'none';
@@ -188,27 +91,16 @@
   }
 
   async function signIn() {
-    if (!auth0Client) {
-      console.error('Auth0 client not initialized');
-      return;
-    }
+    if (!auth0Client) { console.error('Auth0 not initialized'); return; }
     await auth0Client.loginWithRedirect();
   }
 
   async function signOut() {
-    if (auth0Client) {
-      auth0Client.logout({ returnTo: window.location.origin + '/portfolio.html' });
-    }
+    if (auth0Client) auth0Client.logout({ returnTo: window.location.origin + '/portfolio.html' });
   }
 
-  document.getElementById('signInButton').addEventListener('click', function(e) {
-    e.preventDefault();
-    signIn();
-  });
-  document.getElementById('signOutButton').addEventListener('click', function(e) {
-    e.preventDefault();
-    signOut();
-  });
+  document.getElementById('signInButton').addEventListener('click', e => { e.preventDefault(); signIn(); });
+  document.getElementById('signOutButton').addEventListener('click', e => { e.preventDefault(); signOut(); });
 
   window.addEventListener('load', initAuth0);
 </script>
