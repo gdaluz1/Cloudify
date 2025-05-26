@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloudify Portal - Dropdown Example</title>
     <link rel="stylesheet" href="/css/style.css">
-    <script src="https://alcdn.msauth.net/browser/2.19.0/js/msal-browser.min.js"></script>
+    <!-- Auth0 SPA SDK -->
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0.2/auth0-spa-js.production.js"></script>
 
     <style>
         html, body {
             height: auto;
             margin: auto;
-            padding:0;
+            padding: 0;
             background-color: #f5f5f5;
         }
 
@@ -61,6 +62,7 @@
             padding: 10px 20px;
             text-decoration: none;
             border-radius: 5px;
+            cursor: pointer;
         }
 
         .trust-text {
@@ -101,7 +103,7 @@
             <span class="nav-text">Request Demo</span>
         </nav>
         <div class="cta-wrapper">
-            <a href="#" class="sign-in" id="signInButton">Sign In</a>
+            <button class="sign-in" id="signInButton">Sign In</button>
             <a href="index.html" class="get-started-btn">Get Started</a>
         </div>
     </header>
@@ -134,33 +136,45 @@
 </section>
 
 <script>
-    const msalConfig = {
-        auth: {
-            clientId: "418cd301-05ed-4780-a1d7-7f3c5e31834e",
-            redirectUri: "https://cloudify-btgdfrc9hzc3h4fj.eastus-01.azurewebsites.net/portfolio.html",
-        }
-    };
+  // Declare auth0Client once at top level
+  var auth0Client;
 
-    const msalInstance = new msal.PublicClientApplication(msalConfig);
-
-    async function signIn() {
-        const loginRequest = {
-            scopes: ["00000002-0000-0000-c000-000000000000/.default"]
-        };
-
-        try {
-            // Usa loginRedirect para redirecionar o usuário para a página de login
-            await msalInstance.loginRedirect(loginRequest);
-        } catch (error) {
-            console.error("Login failed", error);
-        }
-    }
-
-    document.getElementById("signInButton").addEventListener("click", (event) => {
-        event.preventDefault();
-        signIn();
+  async function initAuth0() {
+    auth0Client = await createAuth0Client({
+      domain: 'dev-uk-identityteam.eu.auth0.com',
+      client_id: 'J86PAG2kXUXOc1H99Q9XxC8ndjUHS73C',
+      redirect_uri: window.location.origin + '/portfolio.html'
     });
-</script>
 
+    // Handle redirect callback if present
+    if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+      await auth0Client.handleRedirectCallback();
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }
+
+  async function signIn() {
+    return auth0Client.loginWithRedirect();
+  }
+
+  async function getUser() {
+    const user = await auth0Client.getUser();
+    console.log('Logged in user:', user);
+    // TODO: update UI with user info
+  }
+
+  document.getElementById('signInButton')
+    .addEventListener('click', function(e) {
+      e.preventDefault();
+      signIn();
+    });
+
+  window.addEventListener('load', async () => {
+    await initAuth0();
+    if (await auth0Client.isAuthenticated()) {
+      getUser();
+    }
+  });
+</script>
 </body>
 </html>
